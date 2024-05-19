@@ -11,8 +11,18 @@ interface Form {
   password: string;
 }
 
+interface User {
+  email: string | null;
+  isUserLoading: boolean;
+  isButtonDisabled: boolean;
+}
+
 export default function Form() {
-  const [email, setEmail] = useState<string | null>(null);
+  const [user, setUser] = useState<User>({
+    isUserLoading: true,
+    email: null,
+    isButtonDisabled: false,
+  });
   const {
     register,
     formState: { errors },
@@ -21,16 +31,40 @@ export default function Form() {
 
   const onSubmit = async (data: Form) => {
     console.log("Form Submitted with data", data);
+    setUser({
+      email: null,
+      isUserLoading: true,
+      isButtonDisabled: true,
+    });
     //simulating some time dalay
-    setTimeout(async() => {
-      const res = await axios.post(`${BASE_URL}/signup`, data, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
-      });
-      if (res.data) {
-        setEmail(res.data.email);
+    setTimeout(async () => {
+      try {
+        const res = await axios.post(`${BASE_URL}/signup`, data, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        });
+        if (res.data.email) {
+          setUser({
+            email: res.data.email,
+            isUserLoading: false,
+            isButtonDisabled: false,
+          });
+        } else {
+          setUser({
+            email: null,
+            isUserLoading: false,
+            isButtonDisabled: false,
+          });
+        }
+      } catch (error) {
+        console.error(error);
+        setUser({
+          email: null,
+          isUserLoading: false,
+          isButtonDisabled: false,
+        });
       }
     }, 3000);
   };
@@ -51,7 +85,11 @@ export default function Form() {
         {...register("password")}
         className="border border-black text-black"
       />
-      <Button email={email} />
+      <Button
+        email={user.email}
+        isUserLoading={user.isUserLoading}
+        isButtonDisabled={user.isButtonDisabled}
+      />
     </form>
   );
 }
