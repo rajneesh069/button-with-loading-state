@@ -6,9 +6,9 @@ app.use(
   cors({
     // origin: "http://localhost:3000", //for local development
     origin: [
-      "https://button-with-loading-state.vercel.app/",
-      "https://button-with-loading-state-rajneesh-mishras-projects.vercel.app/",
-      "https://button-with-loading-state-git-main-rajneesh-mishras-projects.vercel.app/",
+      "https://button-with-loading-state.vercel.app",
+      "https://button-with-loading-state-rajneesh-mishras-projects.vercel.app",
+      "https://button-with-loading-state-git-main-rajneesh-mishras-projects.vercel.app",
       "https://vercel.com/rajneesh-mishras-projects/button-with-loading-state/D9vUfcsBnRZTjpUBGy9XwVLqdr6K",
     ],
     credentials: true,
