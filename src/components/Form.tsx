@@ -20,7 +20,7 @@ export default function Form() {
   } = useForm<Form>();
 
   const onSubmit = async (data: Form) => {
-    console.log("Form Submitted withg data", data);
+    console.log("Form Submitted with data", data);
     //simulating some time dalay
     setTimeout(async() => {
       const res = await axios.post(`${BASE_URL}/signup`, data, {
