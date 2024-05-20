@@ -79,11 +79,13 @@ export default function Form() {
         placeholder="Email"
         {...register("email")}
         className="border border-black text-black"
+        type="email"
       />
       <input
         placeholder="Password"
         {...register("password")}
         className="border border-black text-black"
+        type="password"
       />
       <Button
         email={user.email}
